@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国古代数学文化</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(to top, #98b2c9 0%, #ecd477 25%, #98b2c9 50%, #ecd477 75%, #98b2c9 100%);
+            position: relative;
+        }
+
+        #nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: none;
+            border-radius: 10em;
+            display: flex;
+            list-style: none;
+            background-image: linear-gradient(to right, #98b2c9 0%, #ecd477 100%);
+            box-shadow: 20px 40px 40px #00000033;
+            padding: 10px;
+            width: 75vw;
+            transition: top 0.3s ease;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #nav.show {
+            top: 15px;
+        }
+
+        #nav.hide {
+            top: -100px;
+        }
+
+        #nav a.active {
+            color: #fff;
+            background-color: #333;
+            writing-mode: horizontal-tb;
+        }
+
+        #nav li a {
+            position: relative;
+            padding: 15px 50px;
+            font: 500 24px '优设标题黑';
+            border: none;
+            outline: none;
+            color: rgb(70, 100, 180);
+            display: inline-block;
+            text-decoration: none;
+            z-index: 3;
+        }
+
+        .slide1,
+        .slide2 {
+            position: absolute;
+            display: inline-block;
+            height: 60px;
+            border-radius: 10em;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1.05);
+        }
+
+        .slide1 {
+            background-color: rgb(170, 190, 255);
+            z-index: 2;
+        }
+
+        .slide2 {
+            opacity: 0;
+            background-color: rgba(170, 190, 255, .5);
+            z-index: 1;
+            box-shadow: 0 0 20px #ffffffaa inset;
+        }
+
+        .squeeze {
+            transform: scale(0.9);
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            opacity: 0.2;
+            transform: translateY(100px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+        }
+
+        .box {
+            width: 250px;
+            height: 250px;
+            margin: 20px;
+            background-color: #fff;
+            overflow: hidden;
+            perspective: 1000px;
+            transition: transform 0.5s;
+        }
+
+        .box:hover {
+            transform: scale(1.1) rotateY(10deg);
+        }
+
+        .box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .box:hover img {
+            transform: scale(1.2);
+        }
+
+        .appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .shell {
+            position: relative;
+            width: 60vw;
+            height: 40vw;
+            max-width: 380px;
+            max-height: 250px;
+            margin: 0;
+            color: white;
+            perspective: 1000px;
+            transform-origin: center;
+        }
+
+        .content2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+            transform-style: preserve-3d;
+            transform: translateZ(-30vw) rotateY(0);
+            animation: carousel 9s infinite cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+
+        @keyframes carousel {
+            0%, 25% {
+                transform: translateZ(-35vw) rotateY(0);
+            }
+            25%, 45% {
+                transform: translateZ(-35vw) rotateY(-90deg);
+            }
+            50%, 70% {
+                transform: translateZ(-35vw) rotateY(-180deg);
+            }
+            75%, 95% {
+                transform: translateZ(-35vw) rotateY(-270deg);
+            }
+            100% {
+                transform: translateZ(-35vw) rotateY(-360deg);
+            }
+        }
+
+        .shell3 {
+            width: 90%;
+            height: 700px;
+            display: flex;
+        }
+
+        .box3 {
+            flex: 1;
+            overflow: hidden;
+            transition: .5s;
+            margin: 0 20px;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, .5);
+            border-radius: 20px;
+            border: 10px solid #fff;
+            background-image: linear-gradient(to top, #ecd477 0%, #98b2c9 100%);
+        }
+
+        .box3 > img {
+            width: 200%;
+            height: 85%;
+            object-fit: cover;
+            transition: .5s;
+        }
+
+        .box3 > span {
+            font: 200 45px '优设标题黑';
+            text-align: center;
+            height: 15%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box3:hover {
+            flex-basis: 40%;
+        }
+
+        .box3:hover > img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .loading {
+            position: fixed;
+            flex-direction: column;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 100000000;
+            transition: 1s ease;
+            opacity: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #98b2c9 0%, #ecd477 100%);
+            pointer-events: none;
+        }
+
+        .loading svg {
+            width: 5rem;
+            margin-bottom: 2rem;
+            overflow: visible;
+            transition: 0.3s ease;
+        }
+
+        .loading p {
+            font-family: sans-serif;
+            font-size: 2rem;
+            color: #171717;
+            font-weight: 900;
+            transition: 0.3s ease;
+        }
+
+        .loading_out {
+            opacity: 0;
+        }
+
+        .loading_out svg,
+        .loading_out p {
+            opacity: 0;
+        }
+
+        .text {
+            width: 80%;
+            margin: 0 auto;
+            text-align: justify;
+            font-family: 楷体, KaiTi, serif;
+            line-height: 1.6;
+            font-size: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            padding: 30px;
+        }
+
+        .text p::first-letter {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+
+        .text::before {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-top: 2px solid black;
+            border-left: 2px solid black;
+        }
+
+        .text::after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+        }
+
+        .text::before {
+            top: -2px;
+            left: -2px;
+        }
+
+        .text::after {
+            bottom: -2px;
+            right: -2px;
+        }
+
+        .label {
+            width: 100%;
+            text-align: justify;
+            font-family: 楷体, KaiTi, serif;
+            line-height: 1.6;
+            font-size: 40px;
+            justify-content: flex-start;
+            margin-bottom: 80px;
+            font-weight: bolder;
+            animation: none !important;
+            color: black;
+        }
+
+
+        .text p:hover {
+            animation: floatUpDown 3s infinite ease-in-out;
+            color: #F5F4FE !important;
+        }
+
+        .text p {
+            transition: transform 0.3s ease-in-out;
+            text-shadow: none;
+            font-size: 26px;
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .top-left-corner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            border-top: 2px solid black;
+            border-left: 2px solid black;
+        }
+
+        .top-right-corner {
+            position: absolute;
+            top: 100px;
+            right: 100px;
+            width: 50px;
+            height: 50px;
+            border-top: 2px solid black;
+            border-right: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+<div class="loading">
+    <p id="loadingText" style="font-family: 华文行楷;font-size: 36px">文化源流传千古，思维之花绽芳华。</p>
+</div>
+
+<div class="section" id="section1">
+    <div class="top-left-corner"></div>
+    <div class="top"></div>
+    <div class="text">
+        <div class="lable">起源</div>
+        <p>
+            中国古代数学的起源可以追溯到远古时期的计数和简单的几何测量。《周易》中的“卦象”和“爻辞”就蕴含了数学的雏形。到了春秋战国时期，随着社会的发展和科技的进步，数学开始作为一门独立的学科出现。《周髀算经》和《九章算术》是这一时期最著名的数学著作，它们涵盖了方程、几何、比例等多个领域，为后世的数学研究奠定了坚实的基础。
+        </p>
+    </div>
+</div>
+
+<div class="section" id="section2">
+    <div class="text">
+        <div class="lable">奠基</div>
+        <p>
+            在秦汉时期，随着中央集权的确立和法律体系的完善，数学迎来了前所未有的发展机遇。张苍等数学家和历法专家的贡献，不仅在数学理论领域取得了显著成就，更在制定历法这一国家治理的关键环节中发挥了至关重要的作用。太初历的颁布，不仅是中国古代数学与天文学相结合的典范，更是数学在国家治理中发挥核心作用的明证，展现了数学对于维护社会秩序和推动文明进步的重要性。
+        </p>
+    </div>
+</div>
+
+<div class="section" id="section3">
+    <div class="text">
+        <div class="lable">多元</div>
+        <p>
+            魏晋南北朝时期，数学研究逐渐融入了哲学和文学的思潮之中，这一时代的数学家们不仅在计算技术上精益求精，更开始致力于数学思想的凝练与理论架构的深化。赵爽、刘徽等杰出的数学家，通过他们的著作和研究，不仅推动了数学理论的深入发展，也为后世的数学探索者留下了丰富的学术遗产。他们的工作，不仅在当时的学术界产生了广泛的影响，更为中国乃至世界的数学发展奠定了坚实的理论基础。
+        </p>
+    </div>
+
+</div>
+
+<div class="section" id="section4">
+    <div class="text">
+        <div class="lable">繁荣</div>
+        <p>
+            隋唐时期，科举制度的确立为数学教育的发展注入了新的活力。这一制度不仅选拔官员，也推动了数学知识的系统化和标准化。王孝通等数学家通过他们的著作，极大地促进了数学思想的传播和普及，使得数学成为当时学术界和官僚体系中不可或缺的一部分。在这个时期，数学的应用范围也得到了显著扩展，特别是在天文观测和水利工程等关键领域，数学的应用带来了技术革新和社会进步。王孝通等人的贡献，不仅在于他们的学术成就，更在于他们对数学普及化和实用化所做的努力，为后世的数学发展奠定了坚实的基础。
+        </p>
+    </div>
+</div>
+
+<div class="section" id="section5">
+    <div class="text">
+        <div class="lable">灿烂</div>
+        <p>
+            宋元时期，商业的兴盛和科技的飞速发展为数学研究注入了蓬勃的生机。在这一时期，杨辉、秦九韶等数学家的工作成为了推动数学进步的重要力量。他们的研究不仅在理论上取得了突破，更在实际应用中展现了巨大的价值。杨辉三角的提出，成为了组合数学和概率论领域的一个里程碑，为后来的学者提供了研究的新视角和解决问题的新方法。秦九韶则以其在方程理论、几何学和代数领域的深入研究，为数学的进一步发展奠定了坚实的基础。这些数学家的贡献，不仅丰富了当时的数学理论，也为后世的数学研究和应用开辟了新的道路。
+        </p>
+    </div>
+</div>
+
+<div class="section" id="section6">
+    <div class="text">
+        <div class="lable">传承</div>
+        <p>
+            明清时代，随着新航路的开辟和文化交流的加深，西方数学知识逐渐传入中国，引发了一场数学领域的知识融合与创新。在这一时期，程大位、吴敬等数学家不仅积极吸收外来的数学成果，更致力于将这些知识与中国传统数学相结合，推动了数学理论的本土化进程。他们的努力不仅丰富了中国的数学体系，也为数学知识在农业、工艺、商业等社会生产领域的应用开辟了新的路径，促进了科学技术的进步和社会经济的发展。这些数学家的工作，成为了连接古代与现代、东方与西方数学的桥梁，对后世产生了深远的影响。
+        </p>
+    </div>
+</div>
+
+<div class="section">
+    <div class="text">
+        <div class="lable">结语</div>
+        <p>
+            中国古代数学文化的发展历程，是中华民族智慧的结晶，也是人类文明进步的见证。从《九章算术》到《数书九章》，从勾股定理到杨辉三角，中国古代数学家们的贡献不仅推动了数学学科的发展，也为世界数学的进步做出了不可磨灭的贡献。今天，我们继承和发扬古代数学文化的同时，也应当以开放的心态学习和吸收世界各国的数学成果，共同推动数学这一人类共同财富的发展。
+        </p>
+    </div>
+</div>
+
+<ul id="nav">
+    <li class="slide1"></li>
+    <li class="slide2"></li>
+    <li><a onclick="loading.in('entry.html','走进古代数学历史，探寻数学的诗和远方，领略千年智慧的韵味悠长。')">&#60; &lt;
+        返回</a></li>
+    <li><a href="#section1">起源</a></li>
+    <li><a href="#section2">奠基</a></li>
+    <li><a href="#section3">多元</a></li>
+    <li><a href="#section4">繁荣</a></li>
+    <li><a href="#section5">灿烂</a></li>
+    <li><a href="#section6">传承</a></li>
+</ul>
+
+<script>
+    window.addEventListener('scroll', function () {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            if (sectionTop < window.innerHeight / 1.3) {
+                section.classList.add('appear');
+            } else {
+                section.classList.remove('appear');
+            }
+        });
+    });
+</script>
+<script src="js/jquery-3.7.0.js"></script>
+<script>
+    $("#nav a").on("click", function (e) {
+        e.preventDefault();
+
+        var targetId = $(this).attr("href");
+        var targetPosition = $(targetId).offset().top;
+
+        $("html, body").animate({
+            scrollTop: targetPosition
+        }, 800);
+
+        var position = $(this).parent().position();
+        var width = $(this).parent().width();
+        $("#nav .slide1").css({opacity: 1, left: +position.left, width: width});
+    });
+    $("#nav a").on("mouseover", function () {
+        var position = $(this).parent().position();
+        var width = $(this).parent().width();
+        $("#nav .slide2").css({opacity: 1, left: +position.left, width: width}).addClass("squeeze");
+    });
+    $("#nav a").on("mouseout", function () {
+        $("#nav .slide2").css({opacity: 0}).removeClass("squeeze");
+    });
+    var currentWidth = $("#nav li:nth-of-type(3) a").parent("li").width();
+    var current = $("li:nth-of-type(3) a").position();
+    $("#nav .slide1").css({left: +current.left, width: currentWidth});
+    var lastScrollTop = 0;
+    $(window).on("scroll", function () {
+        var st = $(this).scrollTop();
+        if (st > lastScrollTop) {
+            $("#nav").addClass("hide").removeClass("show");
+        } else {
+            $("#nav").addClass("show").removeClass("hide");
+        }
+        lastScrollTop = st;
+    });
+
+</script>
+<script>
+    const loading = {
+        container: document.querySelector(".loading"),
+        in(target, pageName) {
+            const loadingText = document.getElementById('loadingText');
+            loadingText.textContent = pageName;
+            this.container.classList.remove("loading_out");
+            setTimeout(() => {
+                window.location.href = target;
+            }, 1000)
+        },
+        out() {
+            this.container.classList.add("loading_out");
+        }
+    };
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            loading.out();
+            window.scrollTo(0, 0);
+        }, 1000);
+    })
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国古代数学家</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(to top, #98b2c9 0%, #ecd477 25%, #98b2c9 50%, #ecd477 75%, #98b2c9 100%);
+            position: relative;
+
+        }
+
+        #nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: none;
+            border-radius: 10em;
+            display: flex;
+            list-style: none;
+            background-image: linear-gradient(to right, #98b2c9 0%, #ecd477 100%);
+            box-shadow: 20px 40px 40px #00000033;
+            padding: 10px;
+            width: 82vw;
+            transition: top 0.3s ease;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #nav.show {
+            top: 15px;
+        }
+
+        #nav.hide {
+            top: -100px;
+        }
+
+        #nav a.active {
+            color: #fff;
+            background-color: #333;
+            writing-mode: horizontal-tb;
+        }
+
+        #nav li a {
+            position: relative;
+            padding: 15px 50px;
+            font: 500 24px '优设标题黑';
+            border: none;
+            outline: none;
+            color: rgb(70, 100, 180);
+            display: inline-block;
+            text-decoration: none;
+            z-index: 3;
+        }
+
+        .slide1,
+        .slide2 {
+            position: absolute;
+            display: inline-block;
+            height: 60px;
+            border-radius: 10em;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1.05);
+        }
+
+        .slide1 {
+            background-color: rgb(170, 190, 255);
+            z-index: 2;
+        }
+
+        .slide2 {
+            opacity: 0;
+            background-color: rgba(170, 190, 255, .5);
+            z-index: 1;
+            box-shadow: 0 0 20px #ffffffaa inset;
+        }
+
+        .squeeze {
+            transform: scale(0.9);
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            opacity: 0.2;
+            transform: translateY(100px);
+            transition: opacity 0.5s, transform 0.5s;
+            margin-top: 300px;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+        }
+
+        .box {
+            width: 250px;
+            height: 250px;
+            margin: 20px;
+            background-color: #fff;
+            overflow: hidden;
+            perspective: 1000px;
+            transition: transform 0.5s;
+        }
+
+        .box:hover {
+            transform: scale(1.1) rotateY(10deg);
+        }
+
+        .box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .box:hover img {
+            transform: scale(1.2);
+        }
+
+        .appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .shell {
+            position: relative;
+            width: 60vw;
+            height: 40vw;
+            max-width: 380px;
+            max-height: 250px;
+            margin: 0;
+            color: white;
+            perspective: 1000px;
+            transform-origin: center;
+        }
+
+        .content2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+            transform-style: preserve-3d;
+            transform: translateZ(-30vw) rotateY(0);
+            animation: carousel 9s infinite cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+
+        @keyframes carousel {
+            0%, 25% {
+                transform: translateZ(-35vw) rotateY(0);
+            }
+            25%, 45% {
+                transform: translateZ(-35vw) rotateY(-90deg);
+            }
+            50%, 70% {
+                transform: translateZ(-35vw) rotateY(-180deg);
+            }
+            75%, 95% {
+                transform: translateZ(-35vw) rotateY(-270deg);
+            }
+            100% {
+                transform: translateZ(-35vw) rotateY(-360deg);
+            }
+        }
+
+        .shell3 {
+            width: 90%;
+            height: 550px;
+            display: flex;
+        }
+
+        .box3 {
+            flex: 1;
+            overflow: hidden;
+            transition: .5s;
+            margin: 0 20px;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, .5);
+            border-radius: 20px;
+            border: 10px solid #fff;
+            background-image: linear-gradient(to top, #98b2c9 0%, #ecd477 100%);
+        }
+
+        .box3 > img {
+            width: 200%;
+            height: 85%;
+            object-fit: cover;
+            transition: .5s;
+        }
+
+        .box3 > span {
+            font: 200 45px '优设标题黑';
+            text-align: center;
+            height: 15%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            bottom: 10px;
+        }
+
+        .box3:hover {
+            flex-basis: 80%;
+        }
+
+        .box3:hover > img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .loading {
+            position: fixed;
+            flex-direction: column;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 100000000;
+            transition: 1s ease;
+            opacity: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #98b2c9 0%, #ecd477 100%);
+            pointer-events: none;
+        }
+
+        .loading svg {
+            width: 5rem;
+            margin-bottom: 2rem;
+            overflow: visible;
+            transition: 0.3s ease;
+        }
+
+        .loading p {
+            font-family: sans-serif;
+            font-size: 2rem;
+            color: #171717;
+            font-weight: 900;
+            transition: 0.3s ease;
+        }
+
+        .loading_out {
+            opacity: 0;
+        }
+
+        .loading_out svg,
+        .loading_out p {
+            opacity: 0;
+        }
+
+        .text {
+            width: 80%;
+            margin: 0 auto;
+            text-align: justify;
+            font-family: 楷体, KaiTi, serif;
+            line-height: 1.6;
+            font-size: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            padding: 30px;
+        }
+
+        .text p::first-letter {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+
+        .text::before {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-top: 2px solid black;
+            border-left: 2px solid black;
+        }
+
+        .text::after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+        }
+
+        .text::before {
+            top: -2px;
+            left: -2px;
+        }
+
+        .text::after {
+            bottom: -2px;
+            right: -2px;
+        }
+
+        .text p {
+            position: relative;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .text p:hover {
+            animation: floatUpDown 3s infinite ease-in-out;
+            color: #1ba784;
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .text {
+            width: 80%;
+            margin: 0 auto;
+            text-align: justify;
+            font-family: 楷体, KaiTi, serif;
+            line-height: 1.6;
+            font-size: 26px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .label {
+            width: 100%;
+            text-align: justify;
+            font-family: 楷体, KaiTi, serif;
+            line-height: 1.6;
+            font-size: 60px;
+            justify-content: flex-start;
+            margin-bottom: 80px;
+            font-weight: bolder;
+            animation: none !important;
+            color: black;
+        }
+
+
+        .text p:hover {
+            animation: floatUpDown 3s infinite ease-in-out;
+            color: #F5F4FE !important;
+        }
+
+        .text p {
+            transition: transform 0.3s ease-in-out;
+            text-shadow: none;
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="loading">
+    <p id="loadingText" style="font-family: 华文行楷;font-size: 36px">贤哲慧心谱传奇，才华横溢炳千秋。</p>
+</div>
+
+<div class="section" style="position: relative;width: 100%">
+    <div class="text">
+        <p>
+            数学，宛如一颗闪耀着无尽光芒的璀璨明珠，它是人类智慧的结晶，在漫长历史的长河中绽放着独一无二的绚烂光芒。从秦汉时期伊始，穿越时光的隧道，直至明清时代，无数杰出的数学家犹如浩瀚夜空中璀璨夺目的星辰，以其耀眼的光辉照亮了中国数学那广袤无垠的天空。
+        </p>
+    </div>
+
+</div>
+<div class="section" id="section1" style="height: auto">
+    <div class="text">
+        <div class="label">代表人物</div>
+        <p>古代数学家们以其非凡的智慧和创造力，开拓了数学的领域，为后来的数学发展奠定了坚实的基础。他们的名字如同璀璨星辰，闪耀在数学的天空。</p>
+    </div>
+
+</div>
+<div class="section" style="height: auto">
+    <div class="shell3">
+        <div class="box3">
+            <img src="img/张苍L.png">
+            <span>暗</span>
+        </div>
+        <div class="box3">
+            <img src="img/赵爽L.png">
+            <span>算</span>
+        </div>
+        <div class="box3">
+            <img src="img/刘徽L.png">
+            <span>功</span>
+        </div>
+        <div class="box3">
+            <img src="img/祖冲之L.png">
+            <span>殊</span>
+        </div>
+        <div class="box3">
+            <img src="img/王孝通L.png">
+            <span>绝</span>
+        </div>
+        <div class="box3">
+            <img src="img/李淳风L.png">
+            <span>微</span>
+        </div>
+        <div class="box3">
+            <img src="img/杨辉L.png">
+            <span>机</span>
+        </div>
+        <div class="box3">
+            <img src="img/秦九韶L.png">
+            <span>力</span>
+        </div>
+        <div class="box3">
+            <img src="img/程大位L.png">
+            <span>可</span>
+        </div>
+        <div class="box3">
+            <img src="img/吴敬L.png">
+            <span>任</span>
+        </div>
+    </div>
+</div>
+
+<div class="section" id="section2">
+    <div class="text">
+        <div class="label">秦汉</div>
+        <p>
+            在秦汉时期，中国数学逐渐建立了其基础，这一时期数学的发展与天文、历法以及土地测量等领域密切相关。张苍是当时数学界的杰出代表之一，他的贡献不仅体现在《九章算术》早期注释上，更在于他参与了太初历的编制工作，这对后世数学和天文学的发展产生了深远的影响。
+        </p>
+        <p>
+            在这段时期，天文学和数学的交叉研究日益增多。天文学在古代中国有着重要的地位，不仅与农业生产、社会稳定密切相关，还与帝王的统治合法性有着紧密联系。因此，天文学的研究往往需要数学的支撑。张苍作为数学家兼天文学家，深谙数学在天文学中的应用，他的参与太初历的编制工作就是最好的证明。太初历是汉武帝时期制定的一部历法，其编制需要复杂的数学计算和天文观测数据的处理。张苍的参与使得太初历在当时的天文学发展中成为重要的里程碑，也奠定了中国古代数学在天文学中的地位。
+        </p>
+        <p>
+            此外，张苍对《九章算术》的注释工作也对后世数学学术产生了重要影响。《九章算术》是中国古代数学的经典著作之一，涵盖了古代数学的各个领域，包括算术、代数、几何等。张苍对其的注释不仅帮助后人更好地理解了这部重要著作，更为后世的数学研究提供了重要参考资料。
+        </p>
+        <p>
+            因此，张苍的工作不仅体现了秦汉时期数学与天文学紧密结合的特点，也展示了当时学者在科学探索上的卓越才能。他的贡献不仅为当时的数学和天文学发展注入了新的活力，也为后世的数学研究提供了宝贵的经验和启示。
+        </p>
+    </div>
+
+</div>
+
+<div class="section" id="section3">
+    <div class="text">
+        <div class="label">魏晋南北朝</div>
+        <p>
+            在魏晋南北朝时期，中国数学继续向前迈进，数学家们在推动数学发展方面发挥着重要作用。这一时期的数学发展与天文学、历法等领域仍然密切相关，数学家们通过其研究工作为当时社会的进步和发展提供了支持。 </p>
+        <p>
+            赵爽、刘徽和祖冲之是魏晋南北朝时期的数学代表人物之一。他们的工作在数学理论的发展中起着重要作用。赵爽以其对《周髀算经》的注释而知名，他的工作在几何学方面有所建树。刘徽则以其对《九章算术》的深入注释而著称，他的工作对后世数学家有着重要的启示作用。祖冲之在圆周率的计算、数学方法的创新等方面做出了杰出贡献，开创了中国数学在几何学和解析几何方面的新局面。 </p>
+        <p>
+            在魏晋南北朝时期，数学与天文学的关系更加紧密。天文学在当时仍然占据着重要地位，而数学在天文学研究中发挥着关键作用。数学家们参与了天文观测数据的处理和历法的编制工作，为天文学的进步做出了贡献。
+        </p>
+        <p>
+            同时，魏晋南北朝时期的数学家们也对古代经典著作进行了深入研究和注释。他们的工作为后世数学学术提供了重要的参考资料，推动了数学理论的不断完善和深化。
+        </p>
+        <p>
+            因此，魏晋南北朝时期数学家们的贡献不仅体现了数学与天文学、历法等领域的紧密结合，也展示了他们在科学探索上的卓越才能。他们的工作为当时的数学发展注入了新的活力，也为后世的数学研究提供了宝贵的经验和启示。
+        </p>
+    </div>
+</div>
+
+<div class="section" id="section4">
+    <div class="text">
+        <div class="label">隋唐</div>
+        <p>
+            在隋唐时期，中国数学迎来了繁荣的发展阶段，数学家们在理论研究和实践应用方面取得了重大成就。王孝通和李淳风是隋唐时期数学领域的杰出代表之一，他们的工作对数学的进步和发展做出了重要贡献。 </p>
+        <p>
+            王孝通是唐代数学家，他在数学教育和学术研究方面都有卓越成就。他的代表作品包括《数学九章》等，这些著作在当时对数学理论的传播和推广起到了重要作用。王孝通的贡献不仅丰富了数学理论体系，还推动了数学在教育领域的发展。 </p>
+        <p>
+            李淳风是唐代著名数学家，他的研究主要集中在海岛算经等领域。他在海洋航海和商业计算方面做出了重要贡献，提出了一系列解决航海、测量和商业计算问题的方法和理论。李淳风的工作对唐代海洋贸易和航海事业的发展起到了积极作用，也为后世的数学研究提供了重要参考。
+        </p>
+        <p>
+            隋唐时期的数学发展不仅体现了数学与其他学科的紧密结合，还展现了数学家们在理论研究和实践应用上的卓越才能。他们的工作为数学的进步和发展注入了新的活力，也为后世的数学研究和应用提供了重要经验和启示。
+        </p>
+        <p>
+            因此，隋唐时期数学家们的贡献不仅体现了数学与天文学、历法等领域的紧密结合，也展示了他们在科学探索上的卓越才能。
+        </p>
+    </div>
+</div>
+
+<div class="section" id="section5">
+    <div class="text">
+        <div class="label">宋元</div>
+        <p>
+            在宋元时期，中国数学继续蓬勃发展，数学家们在理论研究和实践应用方面取得了显著成就。杨辉和秦九韶是这一时期数学领域的杰出代表之一，他们的贡献为数学的进步和发展注入了新的活力。 </p>
+        <p>
+            杨辉是宋代数学家，他以《详解九章算术》等著作闻名于世。在他的著作中，提出了杨辉三角的概念和性质，这一发现在组合数学和概率论方面有着重要的应用。杨辉的工作不仅丰富了数学理论体系，还为后世数学家提供了重要的研究方法和思路。 </p>
+        <p>
+            秦九韶是元代数学家，他在数学领域做出了卓越的成就。他主要研究了方程、几何和代数等领域，在算术和代数方面有着深入的研究和贡献。他的代表作品包括《数书九章》等，这些著作对后世数学的发展和应用产生了深远影响。秦九韶的工作为数学的推广和普及做出了重要贡献，也为中国数学的繁荣奠定了坚实基础。
+        </p>
+        <p>
+            宋元时期的数学发展不仅展现了数学家们在理论研究和实践应用方面的卓越才能，也为数学的进步和发展注入了新的活力。他们的工作为数学领域的发展提供了重要支持，也为后世的数学研究和应用提供了宝贵经验和启示。
+        </p>
+        <p>
+            因此，隋唐时期数学家们的贡献不仅体现了数学与天文学、历法等领域的紧密结合，也展示了他们在科学探索上的卓越才能。
+        </p>
+    </div>
+</div>
+<div class="section" id="section6" style="margin-bottom: 80px">
+    <div class="text">
+        <div class="label">明清</div>
+        <p>
+            在明清时期，中国数学继续迈向新的高峰，数学家们在理论探索和实践应用方面取得了显著的成就。这一时期的数学发展不仅推动了数学理论的深化，还为社会的发展和进步提供了重要支持。 </p>
+        <p>
+            程大位和吴敬是明清时期数学的杰出代表之一，他们的贡献为数学领域注入了新的活力。程大位致力于数学教育和学术研究，他编写了《数学钥》等重要著作，对数学知识的传播和普及起到了重要作用。吴敬则通过《九章算法比类大全》等著作促进了珠算技术的发展与普及，提高了商业计算的效率，为当时社会的经济发展做出了重要贡献。 </p>
+        <p>
+            在明清时期，数学与其他学科的交叉融合更加密切，数学在天文学、历法、商业计算等领域的应用得到了进一步加强。数学家们不仅参与了天文观测数据的处理和历法的制定，还致力于提高商业计算的效率和精度，推动了数学知识在社会生产中的应用和发展。
+        </p>
+        <p>
+            同时，明清时期的数学家们继续对古代经典著作进行深入研究和注释，为后世数学学术提供了重要的参考资料。他们的工作不仅推动了数学理论的不断完善和深化，还为数学在社会各个领域的应用提供了重要支持。
+        </p>
+        <p>
+            因此，明清时期数学家们的贡献不仅体现了数学与其他学科的紧密结合，也展示了他们在科学研究和实践应用上的卓越才能。他们的工作为当时的数学发展注入了新的活力，也为后世的数学研究和应用提供了宝贵的经验和启示。
+        </p>
+    </div>
+</div>
+
+<ul id="nav">
+    <li class="slide1"></li>
+    <li class="slide2"></li>
+    <li><a onclick="loading.in('entry.html','走进古代数学历史，探寻数学的诗和远方，领略千年智慧的韵味悠长。')">&#60; &lt;
+        返回</a></li>
+    <li><a href="#section1">代表人物</a></li>
+    <li><a href="#section2">秦汉</a></li>
+    <li><a href="#section3">魏晋南北朝</a></li>
+    <li><a href="#section4">隋唐</a></li>
+    <li><a href="#section5">宋元</a></li>
+    <li><a href="#section6">明清</a></li>
+</ul>
+
+
+<script>
+    window.addEventListener('scroll', function () {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            if (sectionTop < window.innerHeight / 1.3) {
+                section.classList.add('appear');
+            } else {
+                section.classList.remove('appear');
+            }
+        });
+    });
+</script>
+<script src="js/jquery-3.7.0.js"></script>
+<script>
+    $("#nav a").on("click", function (e) {
+        e.preventDefault();
+
+        var targetId = $(this).attr("href");
+        var targetPosition = $(targetId).offset().top;
+
+        $("html, body").animate({
+            scrollTop: targetPosition
+        }, 800);
+
+
+        var position = $(this).parent().position();
+        var width = $(this).parent().width();
+        $("#nav .slide1").css({opacity: 1, left: +position.left, width: width});
+    });
+    $("#nav a").on("mouseover", function () {
+        var position = $(this).parent().position();
+        var width = $(this).parent().width();
+        $("#nav .slide2").css({opacity: 1, left: +position.left, width: width}).addClass("squeeze");
+    });
+    $("#nav a").on("mouseout", function () {
+        $("#nav .slide2").css({opacity: 0}).removeClass("squeeze");
+    });
+    var currentWidth = $("#nav li:nth-of-type(3) a").parent("li").width();
+    var current = $("li:nth-of-type(3) a").position();
+    $("#nav .slide1").css({left: +current.left, width: currentWidth});
+    var lastScrollTop = 0;
+    $(window).on("scroll", function () {
+        var st = $(this).scrollTop();
+        if (st > lastScrollTop) {
+            $("#nav").addClass("hide").removeClass("show");
+        } else {
+            $("#nav").addClass("show").removeClass("hide");
+        }
+        lastScrollTop = st;
+    });
+
+</script>
+<script>
+    const loading = {
+        container: document.querySelector(".loading"),
+        in(target, pageName) {
+            const loadingText = document.getElementById('loadingText');
+            loadingText.textContent = pageName;
+            this.container.classList.remove("loading_out");
+            setTimeout(() => {
+                window.location.href = target;
+            }, 1000)
+        },
+        out() {
+            this.container.classList.add("loading_out");
+        }
+    };
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            loading.out();
+            window.scrollTo(0, 0);
+        }, 1000);
+    })
+</script>
+
+</body>
+
+</html>
