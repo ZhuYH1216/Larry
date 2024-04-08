@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中国古代数学成就</title>
+    <title>辉煌成就</title>
     <link rel="preload" href="font/STXINGKA.TTF" as="font" crossorigin="anonymous">
     <link rel="preload" href="font/优设标题黑.ttf" as="font" crossorigin="anonymous">
     <link rel="preload" href="font/simkai.ttf" as="font" crossorigin="anonymous">
@@ -15,7 +15,7 @@
             padding: 0;
         }
 
-         @font-face {
+        @font-face {
             font-family: '华文行楷';
             src: url('font/STXINGKA.TTF');
         }
@@ -123,8 +123,8 @@
             justify-content: center;
             flex-wrap: wrap;
             max-width: 1200px;
-             border-top: 6px double black;
-             border-bottom: 6px double black;
+            border-top: 6px double black;
+            border-bottom: 6px double black;
 
         }
 
@@ -432,7 +432,8 @@
             font-size: 26px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-         .text p::first-letter {
+
+        .text p::first-letter {
             font-size: 40px;
             font-weight: bold;
         }
@@ -470,12 +471,81 @@
             }
         }
 
+        .right-top-image {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        .right-top-image img {
+            width: auto;
+            height: 30vh;
+        }
+
+        .left-center-image {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-55%);
+            left: 0;
+            z-index: 0;
+            animation: floatAnimation 3s ease-in-out infinite;
+        }
+
+        .left-center-image img {
+            width: auto;
+            height: 30vh;
+        }
+
+        /* 设置图片 */
+        .right-bottom-image img {
+            width: auto;
+            height: 30vh;
+        }
+
+        .right-bottom-image {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            z-index: 0;
+            animation: floatAnimation 3s ease-in-out infinite;
+        }
+
+
+        .right-bottom-image img {
+            width: auto;
+            height: 25vh;
+        }
+
+        @keyframes floatAnimation {
+            0%, 100% {
+                transform: translateY(-55%);
+            }
+            50% {
+                transform: translateY(-45%);
+            }
+        }
+
+
     </style>
 </head>
 
 <body>
 <div class="loading">
     <p id="loadingText" style="font-family: 华文行楷;font-size: 36px">算筹精妙通天地，成就非凡载史册。</p>
+</div>
+
+<div class="right-top-image">
+    <img src="img/branch.png" alt="Description of the image">
+</div>
+
+<div class="left-center-image">
+    <img src="img/poet.png" alt="Description of the image">
+</div>
+
+<div class="right-bottom-image">
+    <img src="img/child.png" alt="Description of the image">
 </div>
 
 <div class="section" style="height: 100vh">

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中国古代数学</title>
+    <title>千古数韵</title>
     <link rel="preload" href="font/STXINGKA.TTF" as="font" crossorigin="anonymous">
     <style>
         :root {
@@ -30,11 +30,28 @@
             align-items: center;
             height: 100%;
             background-image: linear-gradient(to top, #98b2c9 0%, #ecd477 100%);
+            margin: 0;
+        }
+
+        .left-image {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            z-index: 2;
+        }
+
+        .left-image img {
+            width: 180%;
+            height: auto;
+            margin-left: 100px;
+            align-content: center;
         }
 
         .void {
-            width: 100%;
-            max-width: 1024px;
+            width: calc(100% - 200px);
+            max-width: 824px;
             margin: auto;
             position: relative;
             aspect-ratio: 1 / 1;
@@ -59,6 +76,7 @@
             top: 50%;
             transform: translateY(-50%);
             width: 100%;
+            color: #2b2b2b;
             animation: rotateCW calc(var(--rotate-speed) * 0.5s) var(--easing) infinite;
         }
 
@@ -273,12 +291,14 @@
         .loading_out p {
             opacity: 0;
         }
-
-
     </style>
 </head>
 
 <body>
+<div class="left-image">
+    <img src="img/title.png" alt="Description of the image">
+</div>
+
 <div class="loading">
     <p id="loadingText" style="font-family: 华文行楷;font-size: 36px">
         走进古代数学历史，探寻数学的诗和远方，领略千年智慧的韵味悠长。</p>
@@ -310,6 +330,7 @@
     <div class="center-circle"></div>
 </div>
 </body>
+
 <script>
     const loading = {
         container: document.querySelector(".loading"),
@@ -332,6 +353,5 @@
         }, 1000);
     })
 </script>
-
 
 </html>

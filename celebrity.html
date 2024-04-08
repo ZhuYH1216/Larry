@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中国古代数学家</title>
+    <title>贤哲之廊</title>
     <link rel="preload" href="font/STXINGKA.TTF" as="font" crossorigin="anonymous">
     <link rel="preload" href="font/优设标题黑.ttf" as="font" crossorigin="anonymous">
     <link rel="preload" href="font/simkai.ttf" as="font" crossorigin="anonymous">
@@ -22,7 +22,7 @@
 
         }
 
-         @font-face {
+        @font-face {
             font-family: '华文行楷';
             src: url('font/STXINGKA.TTF');
         }
@@ -391,12 +391,79 @@
             }
         }
 
+        .right-top-image {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        .right-top-image img {
+            width: auto;
+            height: 30vh;
+        }
+
+        .left-center-image {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-55%);
+            left: 0;
+            z-index: 0;
+            animation: floatAnimation 3s ease-in-out infinite;
+        }
+
+        .left-center-image img {
+            width: auto;
+            height: 30vh;
+        }
+
+
+        .right-bottom-image img {
+            width: auto;
+            height: 30vh;
+        }
+
+        .right-bottom-image {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            z-index: 0;
+            animation: floatAnimation 3s ease-in-out infinite;
+        }
+
+        .right-bottom-image img {
+            width: auto;
+            height: 25vh;
+        }
+
+        @keyframes floatAnimation {
+            0%, 100% {
+                transform: translateY(-55%);
+            }
+            50% {
+                transform: translateY(-45%);
+            }
+        }
+
     </style>
 </head>
 
 <body>
 <div class="loading">
     <p id="loadingText" style="font-family: 华文行楷;font-size: 36px">贤哲慧心谱传奇，才华横溢炳千秋。</p>
+</div>
+
+<div class="right-top-image">
+    <img src="img/branch.png" alt="Description of the image">
+</div>
+
+<div class="left-center-image">
+    <img src="img/poet.png" alt="Description of the image">
+</div>
+
+<div class="right-bottom-image">
+    <img src="img/child.png" alt="Description of the image">
 </div>
 
 <div class="section" style="position: relative;width: 100%">
@@ -410,7 +477,8 @@
 <div class="section" id="section1" style="height: auto">
     <div class="text">
         <div class="label">代表人物</div>
-        <p>古代数学家们以其非凡的智慧和创造力，开拓了数学的领域，为后来的数学发展奠定了坚实的基础。他们的名字如同璀璨星辰，闪耀在数学的天空。</p>
+        <p>
+            古代数学家们以其非凡的智慧和创造力，开拓了数学的领域，为后来的数学发展奠定了坚实的基础。他们的名字如同璀璨星辰，闪耀在数学的天空。</p>
     </div>
 
 </div>
